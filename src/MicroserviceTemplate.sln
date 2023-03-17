@@ -7,21 +7,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3AC6947F-D5F5-48FF-8BC5-122111DD57CF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{20ABEAC9-13CD-404B-8503-EE1380A95247}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Services\Catalog", "{20ABEAC9-13CD-404B-8503-EE1380A95247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Api", "Catalog.Api\Catalog.Api.csproj", "{6421E99B-BAE2-45E6-8CAD-8B3A5E7F8C31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Api", "Services\Catalog\Catalog.Api\Catalog.Api.csproj", "{6421E99B-BAE2-45E6-8CAD-8B3A5E7F8C31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain", "Catalog.Domain\Catalog.Domain.csproj", "{244CDC26-5978-41E7-977B-F81FFDB8C001}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain", "Services\Catalog\Catalog.Domain\Catalog.Domain.csproj", "{244CDC26-5978-41E7-977B-F81FFDB8C001}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Application", "Catalog.Application\Catalog.Application.csproj", "{97EE0A2F-DF04-44FF-B058-A461A3CD4F04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Application", "Services\Catalog\Catalog.Application\Catalog.Application.csproj", "{97EE0A2F-DF04-44FF-B058-A461A3CD4F04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure", "Catalog.Infrastructure\Catalog.Infrastructure.csproj", "{F7B7D654-0A3F-437C-8024-20F9995F89E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure", "Services\Catalog\Catalog.Infrastructure\Catalog.Infrastructure.csproj", "{F7B7D654-0A3F-437C-8024-20F9995F89E3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{DA5A3A99-32D2-420E-A11D-806543B17F26}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Services\Basket", "{DA5A3A99-32D2-420E-A11D-806543B17F26}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{838663F9-2335-4CCB-9107-F19B1CDBDE8F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Services\Discount", "{838663F9-2335-4CCB-9107-F19B1CDBDE8F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{2339DA67-ADBE-4638-8C61-9D78795E9508}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Services\Ordering", "{2339DA67-ADBE-4638-8C61-9D78795E9508}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
