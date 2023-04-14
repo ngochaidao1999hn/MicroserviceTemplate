@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "DiscountGrpc";
+
+package greet;
+
+// The greeting service definition.
+service Discount {
+  // Sends a greeting
+  rpc GetDiscount (GetDiscountRequest) returns (DiscountResponse);
+}
+
+// The request message containing the user's name.
+message GetDiscountRequest {
+  int32 eventId = 1;
+  int32 productId = 2;
+}
+
+// The response message containing the greetings.
+message DiscountResponse {
+  int32 discountId = 1;
+  double rate = 2;
+}
+

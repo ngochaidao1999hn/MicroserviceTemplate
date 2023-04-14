@@ -15,6 +15,7 @@ namespace Basket.Application
         public static IServiceCollection ApplicationServiceRegister(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
     }

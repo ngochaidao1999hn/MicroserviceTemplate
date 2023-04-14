@@ -1,0 +1,12 @@
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\bin\Debug\net6.0\GRPC.deps.json
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\bin\Debug\net6.0\GRPC.dll
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\bin\Debug\net6.0\GRPC.pdb
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\GRPC.csproj.AssemblyReference.cache
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\GRPC.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\GRPC.AssemblyInfoInputs.cache
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\GRPC.AssemblyInfo.cs
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\GRPC.csproj.CoreCompileInputs.cache
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\GRPC.dll
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\refint\GRPC.dll
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\GRPC.pdb
+D:\Project\MicroserviceTemplate\src\BuildingBlocks\Contracts\GRPC\obj\Debug\net6.0\ref\GRPC.dll

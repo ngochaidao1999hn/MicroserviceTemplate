@@ -1,0 +1,12 @@
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\bin\Debug\net6.0\Basket.Domain.deps.json
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\bin\Debug\net6.0\Basket.Domain.dll
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\bin\Debug\net6.0\Basket.Domain.pdb
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\Basket.Domain.csproj.AssemblyReference.cache
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\Basket.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\Basket.Domain.AssemblyInfoInputs.cache
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\Basket.Domain.AssemblyInfo.cs
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\Basket.Domain.csproj.CoreCompileInputs.cache
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\Basket.Domain.dll
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\refint\Basket.Domain.dll
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\Basket.Domain.pdb
+D:\Project\MicroserviceTemplate\src\Services\Basket\Basket.Domain\obj\Debug\net6.0\ref\Basket.Domain.dll
