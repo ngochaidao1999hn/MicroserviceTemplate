@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "dgSpecHash": "0QnoyUmyfG9kmQbvMoUsaqS5Jb861mRJpDTgtHPSBYGbZzxgoQr9fdk65TOQjIrDIxng+xgjqvfuXaTd3yeH8w==",
-  "success": true,
-  "projectFilePath": "D:\\Project\\MicroserviceTemplate\\src\\BuildingBlocks\\EventBus\\EventBus.Message\\EventBus.Message.csproj",
-  "expectedPackageFiles": [],
-  "logs": []
-}
