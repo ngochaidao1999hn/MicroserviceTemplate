@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQ", "BuildingBlocks\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GRPC", "BuildingBlocks\Contracts\GRPC\GRPC.csproj", "{D8F37F45-8843-4865-BFDF-A5DAB8AABEF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Api", "Services\Order\Order\Order.Api.csproj", "{0FEEB329-E070-4AAA-90E2-3C922867A434}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Order.Api", "Services\Order\Order.Api\Order.Api.csproj", "{0FEEB329-E070-4AAA-90E2-3C922867A434}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Discount.DAL", "Services\Discount\Discount.DAL\Discount.DAL.csproj", "{B3206195-CE7C-4E8D-B86A-EFF02B428B13}"
 EndProject
