@@ -1,7 +1,6 @@
-using DiscountGrpc;
-using MassTransit;
-using Order.Api.Services;
-using Order.Services;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,21 +9,24 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IDiscountService, DiscountService>();
-builder.Services.AddScoped<IBusService, BusService>();
-var app = builder.Build();
+builder.Configuration.AddJsonFile("ocelot.json",optional: false ,reloadOnChange: true);
+builder.Services.AddOcelot(builder.Configuration);
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+var app = builder.Build();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+app.UseOcelot().Wait();
+
 
 app.Run();

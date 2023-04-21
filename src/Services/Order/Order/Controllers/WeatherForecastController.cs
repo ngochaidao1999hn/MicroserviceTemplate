@@ -1,7 +1,10 @@
 using DiscountGrpc;
 using Grpc.Core;
+using MassTransit.Testing;
 using Microsoft.AspNetCore.Mvc;
+using Order.Api.Services;
 using Order.Services;
+using RabbitMQ.Messages;
 
 namespace Order.Controllers
 {
@@ -16,11 +19,13 @@ namespace Order.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IDiscountService _discountService;
+        private readonly IBusService _busService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IDiscountService discountService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IDiscountService discountService, IBusService busService)
         {
             _logger = logger;
             _discountService = discountService;
+            _busService = busService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -45,6 +50,20 @@ namespace Order.Controllers
             }
             catch (RpcException ex) 
             { 
+                return BadRequest(ex.Status);
+            }
+        }
+
+        [HttpPost("rabbitMQ")]
+        public async Task<IActionResult> Send([FromBody] TestEvent request)
+        {
+            try
+            {
+                await _busService.SendAsync(request);
+                return Ok();
+            }
+            catch (RpcException ex)
+            {
                 return BadRequest(ex.Status);
             }
         }
