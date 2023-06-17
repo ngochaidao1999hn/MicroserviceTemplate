@@ -1,12 +1,10 @@
-using Microsoft.Extensions.Configuration;
-using Catalog.Infrastructure;
-using Catalog.Application;
-using Microsoft.AspNetCore.Connections;
-using RabbitMQ.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
+using System.Text;
+using User.Api.Models;
+using User.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,8 +39,10 @@ builder.Services.AddSwaggerGen(c =>
          }
     });
 });
-builder.Services.InfrastructureServiceRegister(builder.Configuration);
-builder.Services.ApplicationServiceRegister(builder.Configuration);
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddDbContext<UserDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("UserConnectionString")));
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+.AddEntityFrameworkStores<UserDbContext>();
 builder.Services.AddAuthentication(option =>
 {
     option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -62,8 +62,8 @@ builder.Services.AddAuthentication(option =>
                        Encoding.UTF8.GetBytes(builder.Configuration["JWT:key"]))
                 };
             });
-
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -73,12 +73,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
-
-InfrastructureServiceResolver.Configue(app);
 
 app.Run();

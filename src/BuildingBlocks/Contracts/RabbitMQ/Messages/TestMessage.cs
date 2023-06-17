@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RabbitMQ.Messages
 {
-    public class TestEvent
+    public class TestMessage : MessageBase
     {
-        public string message { get; set; }
+        public object Message { get; set; } = default!;
     }
 }

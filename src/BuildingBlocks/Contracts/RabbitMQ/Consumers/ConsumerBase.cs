@@ -1,5 +1,6 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RabbitMQ.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace RabbitMQ.Consumers
 {
     public abstract class ConsumerBase
     {
-        public abstract void Consume(object sender, BasicDeliverEventArgs ea);
+        public abstract void Consume(MessageBase message, BasicDeliverEventArgs ea);
     }
 }

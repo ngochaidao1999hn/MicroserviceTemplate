@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MassTransit;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Consumers;
@@ -7,15 +8,13 @@ using System.Text;
 
 namespace Catalog.Infrastructure.Bus
 {
-    public class TestConsumer: ConsumerBase
+    public class TestConsumer : IConsumer<TestMessage>
     {
-        public override void Consume(object sender, BasicDeliverEventArgs ea)
+        public Task Consume(ConsumeContext<TestMessage> context)
         {
-            var body = ea.Body.ToArray();
-            var message = Encoding.UTF8.GetString(body);
-            var data = JsonConvert.DeserializeObject<TestEvent>(message);
-            Console.WriteLine($"Received message: {data.message}");
-            // Process the message here
+            var data = context.Message.Message.ToString();
+            Console.WriteLine(data);
+            return Task.CompletedTask;
         }
     }
 }
