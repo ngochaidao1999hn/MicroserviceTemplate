@@ -24,7 +24,7 @@ namespace Catalog.Infrastructure
             {
                 x.UsingRabbitMq((cntxt, cfg) =>
                 {
-                    cfg.Host(configuration["RabbitMQ:BaseUrl"], "/", c =>
+                    cfg.Host(new Uri(configuration["RabbitMQ:BaseUrl"]), c =>
                     {
                         c.Username(configuration["RabbitMQ:Username"]);
                         c.Password(configuration["RabbitMQ:Password"]);

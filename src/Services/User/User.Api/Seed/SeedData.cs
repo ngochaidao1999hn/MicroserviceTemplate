@@ -23,7 +23,7 @@ namespace User.Api.Seed
             }
 
 
-            var user = new ApplicationUser
+            var user = new IdentityUser<string>
             {
                 Email = "admin@admin.com",
                 NormalizedEmail = "ADMIN@ADMIN.COM",
@@ -32,13 +32,14 @@ namespace User.Api.Seed
                 PhoneNumber = "+111111111111",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
-                SecurityStamp = Guid.NewGuid().ToString("D")
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                Id = Guid.NewGuid().ToString(),
             };
 
 
             if (!context.Users.Any(u => u.UserName == user.UserName))
             {
-                var password = new PasswordHasher<ApplicationUser>();
+                var password = new PasswordHasher<IdentityUser<string>>();
                 var hashed = password.HashPassword(user, "admin");
                 user.PasswordHash = hashed;
 
