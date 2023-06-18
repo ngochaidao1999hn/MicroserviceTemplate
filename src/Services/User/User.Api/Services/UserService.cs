@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -11,18 +12,21 @@ namespace User.Api.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
         private readonly IConfiguration _configuration;
         public UserService(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IConfiguration configuration,
-            IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory
+            IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+            RoleManager<ApplicationRole> roleManager
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
+            _roleManager = roleManager;
 
         }
         public async Task<string> GetToken(LoginDto loginDto)
@@ -56,7 +60,7 @@ namespace User.Api.Services
             return stringToken;
         }
 
-        public async Task<bool> Register(RegisterDto registerDto)
+        public async Task Register(RegisterDto registerDto)
         {
             var user = new ApplicationUser
             {
@@ -70,7 +74,15 @@ namespace User.Api.Services
             { 
                 throw new Exception(result.Errors.First().Description);
             }
-            return result.Succeeded;
+            var role = await _roleManager.Roles.Where(x => x.Name == "Customer").FirstOrDefaultAsync();
+            if (role is not null)
+            {
+               var addRoleResult = await _userManager.AddToRoleAsync(user, role.Name);
+               if (!addRoleResult.Succeeded)
+               {
+                   throw new Exception(addRoleResult.Errors.First().Description);
+               }
+            }
         }
     }
 }

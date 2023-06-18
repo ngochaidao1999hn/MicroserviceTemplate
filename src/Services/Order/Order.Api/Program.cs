@@ -1,7 +1,8 @@
 using DiscountGrpc;
-using MassTransit;
 using Order.Api.Services;
 using Order.Services;
+using RabbitMQ.Shared;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

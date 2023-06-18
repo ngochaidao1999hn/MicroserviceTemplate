@@ -8,6 +8,6 @@ namespace RabbitMQ.Messages
 {
     public class TestMessage : MessageBase
     {
-        public object Message { get; set; } = default!;
+        public string Message { get; set; } = default!;
     }
 }

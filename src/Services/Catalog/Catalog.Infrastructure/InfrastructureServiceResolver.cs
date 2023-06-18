@@ -2,14 +2,10 @@
 using Catalog.Infrastructure.Bus;
 using Catalog.Infrastructure.Persistence;
 using Catalog.Infrastructure.Repositories;
-using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using RabbitMQ.Shared;
 
 namespace Catalog.Infrastructure
 {
@@ -19,70 +15,19 @@ namespace Catalog.Infrastructure
         {
             services.AddDbContext<CatalogContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("CatalogConnectionString")));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddMassTransit(x =>
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));           
+            services.AddSingleton<TestConsumer>(sp => 
             {
-                x.UsingRabbitMq((cntxt, cfg) =>
-                {
-                    cfg.Host(new Uri(configuration["RabbitMQ:BaseUrl"]), c =>
-                    {
-                        c.Username(configuration["RabbitMQ:Username"]);
-                        c.Password(configuration["RabbitMQ:Password"]);
-                    });
-                    cfg.ReceiveEndpoint(RabbitMQConstants.TestQueueName, (c) => {
-                        c.Consumer<TestConsumer>();
-                    });
-                });
-            });
-            //services.AddSingleton<IConnection>(sp =>
-            //{
-            //    var factory = new ConnectionFactory
-            //    {
-            //        HostName = configuration["RabbitMQ:Hostname"],
-            //        UserName = configuration["RabbitMQ:Username"],
-            //        Password = configuration["RabbitMQ:Password"]
-            //    };
-            //    return factory.CreateConnection();
-            //});
-            //services.AddSingleton<IModel>(sp =>
-            //{
-            //    var connection = sp.GetRequiredService<IConnection>();
-            //    var channel = connection.CreateModel();
-
-            //    // Declare the queue
-            //    channel.QueueDeclare(
-            //        queue: "orderFanDirect",
-            //        durable: false,
-            //        exclusive: false,
-            //        autoDelete: false,
-            //        arguments: null);
-
-            //    return channel;
-            //});            
+                var config = sp.GetRequiredService<IConfiguration>();
+                return new TestConsumer(config);
+            });         
             return services;
         }
 
         public static void Configue(IApplicationBuilder app)
         {
-            //app.ConfigureRabbitMQ();
+            app.ApplicationServices.GetService<TestConsumer>()?.Consume();
         }
-
-        //public static void ConfigureRabbitMQ(this IApplicationBuilder app)
-        //{
-        //    var channel = app.ApplicationServices.GetService<IModel>();
-        //    BusConsumerRegister(app, channel);
-        //}
-
-        //private static void BusConsumerRegister(IApplicationBuilder app, IModel channel)
-        //{
-        //    var consumer = new EventingBasicConsumer(channel);
-        //    consumer.Received += (sender, ea) =>
-        //    {
-        //        TestConsumer consumer = new TestConsumer();
-        //        consumer.Consume(sender, ea);
-        //        channel.BasicAck(ea.DeliveryTag, false);
-        //    };
-        //    channel.BasicConsume(queue: "orderFanDirect", autoAck: false, consumer: consumer);
-        //}
+       
     }
 }

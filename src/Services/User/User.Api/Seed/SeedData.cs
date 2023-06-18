@@ -6,7 +6,7 @@ namespace User.Api.Seed
 {
     public class SeedData
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static async Task Initialize(IServiceProvider serviceProvider)
         {
             var context = serviceProvider.GetService<UserDbContext>();
 
@@ -18,7 +18,7 @@ namespace User.Api.Seed
 
                 if (!context.Roles.Any(r => r.Name == role))
                 {
-                    roleStore.CreateAsync(new IdentityRole(role));
+                    await roleStore.CreateAsync(new IdentityRole(role));
                 }
             }
 
@@ -48,9 +48,9 @@ namespace User.Api.Seed
 
             }
 
-            AssignRoles(serviceProvider, user.Email, roles);
+            await AssignRoles(serviceProvider, user.Email, roles);
 
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
         public static async Task<IdentityResult> AssignRoles(IServiceProvider services, string email, string[] roles)

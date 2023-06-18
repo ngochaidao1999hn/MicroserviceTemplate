@@ -8,6 +8,6 @@ namespace RabbitMQ.Shared
 {
     public static class RabbitMQConstants
     {
-        public static string TestQueueName = "Test_Queue";
+        public static string TestQueueName = "Test_Queue69";
     }
 }

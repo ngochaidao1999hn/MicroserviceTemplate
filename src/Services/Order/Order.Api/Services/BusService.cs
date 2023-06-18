@@ -1,35 +1,48 @@
 ﻿using Newtonsoft.Json;
 using RabbitMQ.Client;
+using RabbitMQ.Messages;
+using RabbitMQ.Shared;
 using System.Text;
+using System.Threading.Channels;
 
 namespace Order.Api.Services
 {
-    public class BusService : IBusService
+    public class BusService : IBusService,IDisposable
     {
         private readonly IConfiguration _config;
-        private string userName { get; }
-        private string password { get; }
+        private readonly IConnection connection;
+        private readonly IModel channel;
         public BusService(IConfiguration config)
         {
             _config = config;
-            userName = _config["RabbitMQ:UserName"];
-            password = _config["RabbitMQ:Password"];
+            var factory = new ConnectionFactory
+            {
+                HostName = _config["RabbitMQ:Hostname"],
+                UserName = _config["RabbitMQ:Username"],
+                Password = _config["RabbitMQ:Password"]
+            };
+
+            connection = factory.CreateConnection();
+            channel = connection.CreateModel();
         }
-        public Task SendAsync(object mess)
+        public Task SendAsync(TestMessage mess)
         {
             byte[] message = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(mess));
-            var factory = new ConnectionFactory { HostName = "localhost", UserName = userName, Password = password };
-            using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
-            channel.ExchangeDeclare(exchange: "orderFanDirect", type: ExchangeType.Direct);
-            channel.QueueDeclare(queue: "orderFanDirect",
+            channel.ExchangeDeclare(exchange: RabbitMQConstants.TestQueueName, type: ExchangeType.Fanout);
+            channel.QueueDeclare(queue: RabbitMQConstants.TestQueueName,
                      durable: false,
                      exclusive: false,
                      autoDelete: false,
                      arguments: null);
-            channel.QueueBind(queue: "orderFanDirect", exchange: "orderFanDirect", routingKey: "my-key");
-            channel.BasicPublish("orderFanDirect", "my-key", body: message);
+            channel.QueueBind(queue: RabbitMQConstants.TestQueueName, exchange: RabbitMQConstants.TestQueueName, routingKey: "");
+            channel.BasicPublish(RabbitMQConstants.TestQueueName, "", body: message);            
             return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            channel.Dispose();
+            connection.Dispose();
         }
     }
 }

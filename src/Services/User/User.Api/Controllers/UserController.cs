@@ -34,7 +34,8 @@ namespace User.Api.Controllers
         {
             try
             {
-                return Ok(await _userService.Register(dto));
+                await _userService.Register(dto);
+                return Ok();
             }
             catch (Exception ex)           
             {

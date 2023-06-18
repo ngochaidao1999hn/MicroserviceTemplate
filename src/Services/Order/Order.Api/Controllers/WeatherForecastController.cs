@@ -1,6 +1,5 @@
 using DiscountGrpc;
 using Grpc.Core;
-using MassTransit.Testing;
 using Microsoft.AspNetCore.Mvc;
 using Order.Api.Services;
 using Order.Services;
@@ -55,7 +54,7 @@ namespace Order.Controllers
         }
 
         [HttpPost("rabbitMQ")]
-        public async Task<IActionResult> Send([FromBody] TestEvent request)
+        public async Task<IActionResult> Send([FromBody] TestMessage request)
         {
             try
             {
