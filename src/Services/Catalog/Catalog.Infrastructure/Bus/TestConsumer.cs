@@ -34,7 +34,8 @@ namespace Catalog.Infrastructure.Bus
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine("Received message: {0}", message);
+                TestMessage receivedMess = JsonConvert.DeserializeObject<TestMessage>(message);
+                Console.WriteLine("Received message: {0}", receivedMess.Message);
             };
 
             channel.BasicConsume(queue: RabbitMQConstants.TestQueueName, autoAck: true, consumer: consumer);

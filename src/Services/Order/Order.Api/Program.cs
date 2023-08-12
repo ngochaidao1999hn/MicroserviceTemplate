@@ -1,6 +1,7 @@
 using DiscountGrpc;
 using Order.Api.Services;
 using Order.Services;
+using RabbitMQ.Bus;
 using RabbitMQ.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,3 +30,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+ConfigureEventBus(app);
+void ConfigureEventBus(IApplicationBuilder app)
+{
+    var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+}
