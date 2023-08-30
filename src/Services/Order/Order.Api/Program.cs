@@ -1,7 +1,8 @@
 using DiscountGrpc;
-using Order.Api.Services;
+using Order.Api.Bus;
 using Order.Services;
 using RabbitMQ.Bus;
+using RabbitMQ.Messages;
 using RabbitMQ.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
-builder.Services.AddScoped<IBusService, BusService>();
+builder.Services.AddTransient<TestMessageHandler>();
+builder.Services.AddSingleton<IEventBus, EventBus>(sp =>
+{
+    var scopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
+    return new EventBus(scopeFactory);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,10 +35,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+ConfigureEventBus(app);
+
 app.Run();
 
-ConfigureEventBus(app);
+
 void ConfigureEventBus(IApplicationBuilder app)
 {
     var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+    eventBus.Subscribe<TestMessage, TestMessageHandler>();
 }

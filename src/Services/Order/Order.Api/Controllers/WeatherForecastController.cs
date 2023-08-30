@@ -1,8 +1,8 @@
 using DiscountGrpc;
 using Grpc.Core;
 using Microsoft.AspNetCore.Mvc;
-using Order.Api.Services;
 using Order.Services;
+using RabbitMQ.Bus;
 using RabbitMQ.Messages;
 
 namespace Order.Controllers
@@ -18,13 +18,13 @@ namespace Order.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IDiscountService _discountService;
-        private readonly IBusService _busService;
+        private readonly IEventBus _eventBus;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IDiscountService discountService, IBusService busService)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IDiscountService discountService, IEventBus eventBus)
         {
             _logger = logger;
             _discountService = discountService;
-            _busService = busService;
+            _eventBus = eventBus;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -58,7 +58,7 @@ namespace Order.Controllers
         {
             try
             {
-                await _busService.SendAsync(request);
+                _eventBus.Publish<TestMessage>(request);
                 return Ok();
             }
             catch (RpcException ex)
